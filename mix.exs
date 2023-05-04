@@ -52,6 +52,7 @@ defmodule ArcaneDepths.MixProject do
       {:tailwind, "~> 0.2.0", runtime: Mix.env() == :dev},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
+      {:tensor, "~> 2.1"}
     ]
   end
 
