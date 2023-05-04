@@ -3,3 +3,8 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+
+/* TODO: find the definition of this element */
+div[data-phx-main] {
+  height: 100%;
+}

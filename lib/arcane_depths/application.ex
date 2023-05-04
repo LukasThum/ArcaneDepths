@@ -17,9 +17,9 @@ defmodule ArcaneDepths.Application do
       # Start Finch
       {Finch, name: ArcaneDepths.Finch},
       # Start the Endpoint (http/https)
-      ArcaneDepthsWeb.Endpoint
+      ArcaneDepthsWeb.Endpoint,
       # Start a worker by calling: ArcaneDepths.Worker.start_link(arg)
-      # {ArcaneDepths.Worker, arg}
+      ArcaneDepths.TickWorker
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
