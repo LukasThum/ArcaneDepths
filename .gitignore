@@ -35,4 +35,8 @@ arcane_depths-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Thanks Mac OS
 .DS_Store
+
+# decomp
+misc/decomp/

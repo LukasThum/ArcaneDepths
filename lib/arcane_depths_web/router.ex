@@ -20,7 +20,7 @@ defmodule ArcaneDepthsWeb.Router do
   scope "/", ArcaneDepthsWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    # get "/", PageController, :home
   end
 
   # Other scopes may use custom stacks.
@@ -70,7 +70,8 @@ defmodule ArcaneDepthsWeb.Router do
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
     end
 
-    live "/dungeon/:id", DungeonLive
+    live "/", DungeonLive
+    live "/:id", DungeonLive
   end
 
   scope "/", ArcaneDepthsWeb do

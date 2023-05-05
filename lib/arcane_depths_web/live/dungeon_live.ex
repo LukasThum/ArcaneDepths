@@ -19,6 +19,11 @@ defmodule ArcaneDepthsWeb.DungeonLive do
     }
   end
 
+  def mount(_params, session, socket) do
+    mount(%{"id" => "4"}, session, socket)
+  end
+
+
   def handle_info(_info, socket) do
     {:noreply, socket}
   end

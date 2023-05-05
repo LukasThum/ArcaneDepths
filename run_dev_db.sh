@@ -1,4 +1,6 @@
 # !/bin/bash
+docker kill arcane_depths_db
+docker rm -f arcane_depths_db
 docker run -d \
   --name arcane_depths_db \
   -e POSTGRES_USER=postgres \
