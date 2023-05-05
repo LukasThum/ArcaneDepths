@@ -95,6 +95,7 @@ items that can't go into the safe container. in this case the item is put at the
 start of the normal inventory section or, if there is something overhanging,
 under that item.
 
+```
 +---x------------+
 |  meds |  safe  |
 +---x------------+
@@ -106,6 +107,7 @@ under that item.
 |   x   |  over  |
 |       |        |
 +----------------+
+```
 
 ## game / inventory / normal containers.
 there is also the possibility to carry bags or chests. this will expand the
