@@ -37,50 +37,10 @@ tricky with doors that can be open or not.
 ### software / game engine / gui
 the gui should also work mostly like the original. there will be
 
-### software / dungeon master
+### software / game engine / dungeon
 
-#### software / dungeon master / viewport
-
-##### software / dungeon master / viewport / measurements
-
-top to bottom:
-ceiling: 9px
-wall: 113px
-floor: 16px
-
-left to right:
-partial wall left: 30px
-center wall: 163px
-partial wall right: 30px
-
-viewport: 224x138
-
-
-
-inner stone: 80 x 27
-
-
-  #wall-direct {
-    transform:
-      translateX(0px)
-      translateY(0px)
-      translateZ(0px)
-      scaleX(1.37)
-      scaley(1.22)
-    ;
-  }
-
-
-%{
-  ceiling_ratio: 0.08,
-  floor_ratio: 0.15,
-  height: 146.4,
-  perspective: 280,
-  sidewall_ratio: 0.2,
-  wall_height: 120,
-  wall_width: 160,
-  width: 224.0
-}
+one dungeon consists of multiple levels. each level consists of a 2d grid of cells. each cell has 4 walls that can each be of various types. types of cells can be normal, gate, staircase etc. . each cell has a ceiling that has a type like normal, trapdoor, etc. . each cell has a floor that has a type like normal, puddle, trapdoor etc. . the types of walls, floors and ceilings can change their look and behavoir. each of them can hold additional information like trapdoors and staircases have to know which level and position they lead to. each floor has 4 slots. each slot holds a list of items. the list is ordered and determines which item is rendered first. i need an elixir and ecto datastructure for that. each cell can contain one party. a party consists of 1 - 4 characters. each character has to stand on exactly one slot of the cell.
+i want to use elixir and absinthe graphql for this.
 
 
 ## game

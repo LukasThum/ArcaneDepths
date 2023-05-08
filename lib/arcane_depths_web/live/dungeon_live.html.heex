@@ -15,38 +15,52 @@
     height: <%= @viewport[:height] %>px;
   }
 
-  .wall, .ceiling, .floor {
+  .wall {
     position: absolute;
     background-image: url(/images/wall-texture-001.png);
     image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-  }
 
-  .wall {
     width: <%= @viewport[:wall_width] %>px;
     height: <%= @viewport[:wall_height] %>px;
   }
 
   #wall-001 {
     transform:
-      translateX(0px)
+      translateX(<%= @viewport[:wall_left] %>px)
       translateY(0px)
-      translateZ(0px)
+      translateZ(<%= -1 * @viewport[:wall_width] %>px)
+      rotateX(0deg)
+      rotateY(90deg)
+      rotateZ(0deg)
     ;
   }
 
   #wall-002 {
     transform:
-      translateX(-<%= @viewport[:half_wall_width] %>px)
+      translateX(<%= @viewport[:wall_left] %>px)
       translateY(0px)
-      translateZ(-<%= @viewport[:half_wall_width] %>px)
+      translateZ(<%= -1 * (@viewport[:wall_width] + @viewport[:wall_width]) %>px)
+      rotateX(0deg)
       rotateY(90deg)
+      rotateZ(0deg)
+    ;
+  }
+
+  #wall-003 {
+    transform:
+      translateX(<%= @viewport[:wall_left] - @viewport[:half_wall_width] %>px)
+      translateY(0px)
+      translateZ(<%= -1 * @viewport[:half_wall_width] %>px)
+      rotateX(0deg)
+      rotateY(0deg)
+      rotateZ(0deg)
     ;
   }
 </style>
 
 <div class="viewport">
-  <div id="wall-001" class="wall"></div>
+  <div id="wall-003" class="wall"></div>
   <div id="wall-002" class="wall"></div>
+  <div id="wall-001" class="wall"></div>
 
 </div>
