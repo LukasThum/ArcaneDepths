@@ -37,6 +37,52 @@ tricky with doors that can be open or not.
 ### software / game engine / gui
 the gui should also work mostly like the original. there will be
 
+### software / dungeon master
+
+#### software / dungeon master / viewport
+
+##### software / dungeon master / viewport / measurements
+
+top to bottom:
+ceiling: 9px
+wall: 113px
+floor: 16px
+
+left to right:
+partial wall left: 30px
+center wall: 163px
+partial wall right: 30px
+
+viewport: 224x138
+
+
+
+inner stone: 80 x 27
+
+
+  #wall-direct {
+    transform:
+      translateX(0px)
+      translateY(0px)
+      translateZ(0px)
+      scaleX(1.37)
+      scaley(1.22)
+    ;
+  }
+
+
+%{
+  ceiling_ratio: 0.08,
+  floor_ratio: 0.15,
+  height: 146.4,
+  perspective: 280,
+  sidewall_ratio: 0.2,
+  wall_height: 120,
+  wall_width: 160,
+  width: 224.0
+}
+
+
 ## game
 gameplay should be very much the same as in dungeon master. the player moves on
 step at a time in the directions north, east, south and west. they can also turn
