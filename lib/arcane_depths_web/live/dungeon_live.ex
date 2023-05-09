@@ -32,6 +32,8 @@ defmodule ArcaneDepthsWeb.DungeonLive do
 
     viewport = Map.merge(viewport_calculation, viewport_constants)
 
+    log = []
+
     viewer = %{
       position: %{row: 1, cell: 1},
       direction: :east
@@ -44,7 +46,8 @@ defmodule ArcaneDepthsWeb.DungeonLive do
         id: id,
         viewport: viewport,
         dungeon: dungeon(),
-        viewer: viewer
+        viewer: viewer,
+        log: log
       )
     }
   end
@@ -54,18 +57,25 @@ defmodule ArcaneDepthsWeb.DungeonLive do
   end
 
   def handle_event("move", %{"action" => action}, socket) do
+    log = socket.assigns.log
     case action do
       "turn-left" ->
         new_direction = get_new_direction_after_turn(socket.assigns.viewer.direction, :left)
-        {:noreply, assign(socket, viewer: %{socket.assigns.viewer | direction: new_direction})}
+        viewer = %{socket.assigns.viewer | direction: new_direction}
+        log = ["player turned left to #{new_direction}" | log]
+        {:noreply, assign(socket, viewer: viewer, log: log)}
 
       "turn-right" ->
         new_direction = get_new_direction_after_turn(socket.assigns.viewer.direction, :right)
-        {:noreply, assign(socket, viewer: %{socket.assigns.viewer | direction: new_direction})}
+        viewer = %{socket.assigns.viewer | direction: new_direction}
+        log = ["player turned right to #{new_direction}" | log]
+        {:noreply, assign(socket, viewer: viewer, log: log)}
 
       "go-forward" ->
         new_position = get_new_position_after_move(socket.assigns.viewer, :forward)
-        {:noreply, assign(socket, viewer: %{socket.assigns.viewer | position: new_position})}
+        viewer = %{socket.assigns.viewer | position: new_position}
+        log = ["player moved forward to #{new_position.row}, #{new_position.cell}" | log]
+        {:noreply, assign(socket, viewer: viewer, log: log)}
 
       "go-left" ->
         new_position = get_new_position_after_move(socket.assigns.viewer, :left)
