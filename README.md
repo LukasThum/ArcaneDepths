@@ -35,7 +35,15 @@ to determine what each player should be able to see. this will prove especially
 tricky with doors that can be open or not.
 
 ### software / game engine / gui
-the gui should also work mostly like the original. there will be
+the gui should also work mostly like the original.
+
+the gui consists of an upper area where the character portraits and their healthbars etc. are shown.
+below that is the viewport into the dungeon.
+right of that is an area that spans the height whole height.
+it consists of three areas. upmost the chrachter placment, a square area with 2x2 divs.
+below that the magic spell area, a rectanglar area. and below that the navigation.
+it consists of a wasd style arrow pad with turn left and turn right in the upleft and upright boxes,
+where q and e would be.
 
 ### software / game engine / dungeon
 

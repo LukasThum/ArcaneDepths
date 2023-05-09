@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .left-area {
+      background-color: #f0f0f0;
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .upper-area {
+      background-color: lightgray;
+      padding: 1rem;
+    }
+
+    .main-area {
+      display: flex;
+      flex-grow: 1;
+    }
+
+    .viewport {
+      background-color: black;
+      flex-grow: 1;
+    }
+
+    .right-area {
+      background-color: #f0f0f0;
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .character-placement {
+      background-color: white;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 1rem;
+      width: 100%;
+      height: 160px;
+    }
+
+    .character-placement div {
+      background-color: #ccc;
+      width: 80px;
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+
+    .magic-spell-area {
+      background-color: #e0e0e0;
+      flex-grow: 1;
+      padding: 1rem;
+    }
+
+    .navigation {
+      background-color: #d0d0d0;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      height: 160px;
+    }
+
+    .navigation div {
+      background-color: #bbb;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="left-area">
+    <div class="upper-area">
+      <!-- Add character portraits and health bars here -->
+    </div>
+
+    <div class="viewport">
+      <!-- Add dungeon viewport here -->
+    </div>
+  </div>
+
+  <div class="right-area">
+    <div class="character-placement">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <div class="magic-spell-area">
+      <!-- Add magic spells area here -->
+    </div>
+
+    <div class="navigation">
+      <div>Q</div>
+      <div>W</div>
+      <div>E</div>
+      <div>A</div>
+      <div>S</div>
+      <div>D</div>
+    </div>
+  </div>
+
+</body>
+</html>

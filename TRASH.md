@@ -72,3 +72,14 @@ is it possible to define an arbitrary polygon [(x1, y1) (x2, y2)] by using the d
 
 
 if i can define a polygon by x, y, width, height and use the transformations translate, skewX, skewY, scale and rotate, is it possible to make a function that will take any x1, y1, x2, y2 coordinates and give me the x, y, width height and transformations for that shape?
+
+
+  def wall_between?(dungeon, x1, y1, x2, y2) do
+    case {x2 - x1, y2 - y1} do
+      {1, 0} -> get_cell(dungeon, x1, y1)[:east] || get_cell(dungeon, x2, y2)[:west]
+      {-1, 0} -> get_cell(dungeon, x1, y1)[:west] || get_cell(dungeon, x2, y2)[:east]
+      {0, 1} -> get_cell(dungeon, x1, y1)[:south] || get_cell(dungeon, x2, y2)[:north]
+      {0, -1} -> get_cell(dungeon, x1, y1)[:north] || get_cell(dungeon, x2, y2)[:south]
+      _ -> false
+    end
+  end

@@ -1,0 +1,85 @@
+<style>
+  .container {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 100%;
+    grid-template-rows: 25% 75%;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "character-management-area"
+      "lower-area";
+  }
+
+  .character-management-area {
+    display: grid;
+    grid-template-columns: 75% 25%;
+    grid-template-rows: max-content;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-area: character-management-area;
+  }
+
+  .characters {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 100%;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas: ". . . .";
+    grid-area: 1 / 1 / 2 / 3;
+  }
+
+  .character-positioning {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      ". ."
+      ". .";
+    grid-area: 1 / 2 / 2 / 3;
+  }
+
+  .lower-area {
+    display: grid;
+    grid-template-columns: 75% 25%;
+    grid-template-rows: 100%;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas: "viewport-area action-area";
+    grid-area: lower-area;
+  }
+
+  .action-area {
+    grid-area: action-area;
+  }
+
+  .viewport-area {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas: "viewport";
+    grid-area: viewport-area;
+  }
+
+  .viewport {
+    grid-area: viewport;
+  }
+</style>
+
+<div class="container">
+  <div class="character-management-area">
+    <div class="characters"></div>
+    <div class="character-positioning"></div>
+  </div>
+  <div class="lower-area">
+    <div class="action-area"></div>
+    <div class="viewport-area">
+      <div class="viewport"></div>
+    </div>
+  </div>
+</div>

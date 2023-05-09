@@ -1,5 +1,166 @@
 <style>
+  .container {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 100%;
+    grid-template-rows: 25% 75%;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "character-management-area"
+      "lower-area";
+  }
+
+  .character-management-area {
+    display: grid;
+    grid-template-columns: 75% 25%;
+    grid-template-rows: max-content;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-area: character-management-area;
+  }
+
+  .characters {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 100%;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas: ". . . .";
+    grid-area: 1 / 1 / 2 / 3;
+  }
+
+  .character-positioning {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      ". ."
+      ". .";
+    grid-area: 1 / 2 / 2 / 3;
+  }
+
+  .lower-area {
+    display: grid;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    grid-template-columns: 75% 25%;
+    grid-template-rows: 100%;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas: "viewport-area action-area";
+    grid-area: lower-area;
+  }
+
+  .action-area {
+    grid-area: action-area;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 33% 33% 33%;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "magic-area"
+      "combat-area"
+      "navigation-area";
+  }
+
+  .magic-area { grid-area: magic-area; }
+
+  .combat-area {  display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 33%;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "action-char-1 action-char-2 action-char-3 action-char-4";
+    grid-area: combat-area;
+  }
+
+  .action-char-1 { grid-area: action-char-1; }
+
+  .action-char-2 { grid-area: action-char-2; }
+
+  .action-char-3 { grid-area: action-char-3; }
+
+  .action-char-4 { grid-area: action-char-4; }
+
+  .navigation-area {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 50% 50%;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "turn-left go-forward turn-right"
+      "go-left go-backward go-right";
+    grid-area: navigation-area;
+  }
+
+  .navigation-area > div {
+    border-style: solid;
+    border-color: #00cccc;
+    border-width: 1px;
+  }
+
+  .navigation-area > div > img {
+    background-position: center;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    height: 100%;
+  }
+
+  .navigation-area > div:hover {
+    filter: invert(0.30);
+  }
+
+  .turn-left {
+    grid-area: turn-left;
+    transform: scaleX(-0.75) scaleY(0.75);
+  }
+
+  .go-forward {
+    grid-area: go-forward;
+    transform: rotate(270deg) scale(0.75);
+  }
+
+  .turn-right {
+    grid-area: turn-right;
+    grid-area: turn-left;
+    transform: scale(0.75);
+  }
+
+  .go-left {
+    grid-area: go-left;
+    transform: rotate(180deg) scale(0.75);
+  }
+
+  .go-backward {
+    grid-area: go-backward;
+    transform: rotate(90deg) scale(0.75);
+  }
+
+  .go-right {
+    grid-area: go-right;
+    transform: rotate(0deg) scale(0.75);
+  }
+
+  .viewport-area {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas: "viewport";
+    grid-area: viewport-area;
+  }
+
   .viewport {
+    grid-area: viewport;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -7,12 +168,12 @@
     position: relative;
     overflow: hidden;
 
-    background-color: #000;
+    background-color: darkgray;
     color: #fff;
 
     perspective: <%= @viewport[:perspective] %>px;
-    width: <%= @viewport[:width] %>px;
-    height: <%= @viewport[:height] %>px;
+    width: <%= @viewport[:width] %>;
+    height: <%= @viewport[:height] %>;
   }
 
   .wall {
@@ -23,44 +184,70 @@
     width: <%= @viewport[:wall_width] %>px;
     height: <%= @viewport[:wall_height] %>px;
   }
-
-  #wall-001 {
-    transform:
-      translateX(<%= @viewport[:wall_left] %>px)
-      translateY(0px)
-      translateZ(<%= -1 * @viewport[:wall_width] %>px)
-      rotateX(0deg)
-      rotateY(90deg)
-      rotateZ(0deg)
-    ;
-  }
-
-  #wall-002 {
-    transform:
-      translateX(<%= @viewport[:wall_left] %>px)
-      translateY(0px)
-      translateZ(<%= -1 * (@viewport[:wall_width] + @viewport[:wall_width]) %>px)
-      rotateX(0deg)
-      rotateY(90deg)
-      rotateZ(0deg)
-    ;
-  }
-
-  #wall-003 {
-    transform:
-      translateX(<%= @viewport[:wall_left] - @viewport[:half_wall_width] %>px)
-      translateY(0px)
-      translateZ(<%= -1 * @viewport[:half_wall_width] %>px)
-      rotateX(0deg)
-      rotateY(0deg)
-      rotateZ(0deg)
-    ;
-  }
 </style>
 
-<div class="viewport">
-  <div id="wall-003" class="wall"></div>
-  <div id="wall-002" class="wall"></div>
-  <div id="wall-001" class="wall"></div>
+<div class="container">
+  <div class="character-management-area">
+    <div class="characters"></div>
+    <div class="character-positioning"></div>
+  </div>
 
+  <div class="lower-area">
+    <div class="action-area">
+      <div class="magic-area"></div>
+
+      <div class="combat-area">
+        <div class="action-char-1"></div>
+        <div class="action-char-2"></div>
+        <div class="action-char-3"></div>
+        <div class="action-char-4"></div>
+      </div>
+
+      <div class="navigation-area">
+        <div class="turn-left-area" phx-click="move" phx-value-action="turn-left">
+          <image class="turn-left" src="/images/arrow-turn.png" />
+        </div>
+
+        <div class="go-forward-area" phx-click="move" phx-value-action="go-forward">
+          <image class="go-forward" src="/images/arrow-left.png" />
+        </div>
+
+        <div class="turn-right-area" phx-click="move" phx-value-action="turn-right">
+          <image class="turn-right" src="/images/arrow-turn.png" />
+        </div>
+
+        <div class="go-left-area" phx-click="move" phx-value-action="go-left">
+          <image class="go-left" src="/images/arrow-left.png" />
+        </div>
+
+        <div class="go-backward-area" phx-click="move" phx-value-action="go-backward">
+          <image class="go-backward" src="/images/arrow-left.png" />
+        </div>
+
+        <div class="go-right-area" phx-click="move" phx-value-action="go-right">
+          <image class="go-right" src="/images/arrow-left.png" />
+        </div>
+      </div>
+    </div>
+
+    <div class="viewport-area">
+      <div class="viewport">
+        <%= for {row, row_index} <- Enum.with_index(@dungeon) do %>
+          <%= for {cell, cell_index} <- Enum.with_index(row) do %>
+            <%= for {direction, present} <- cell do %>
+              <%= if present && wall_visible?(@viewer, {row_index, cell_index}, direction) do %>
+                <div
+                  class="wall"
+                  id={"wall-#{row_index}-#{cell_index}-#{direction}"}
+                  style={wall_style(@viewport, {row_index, cell_index}, direction, @viewer)}
+                  )}
+                >
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
