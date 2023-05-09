@@ -17,16 +17,21 @@ defmodule ArcaneDepthsWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", ArcaneDepthsWeb do
-    pipe_through :browser
+  scope "/" do
+    pipe_through :api
 
-    # get "/", PageController, :home
+    if Mix.env() in [:dev, :test] do
+      forward "/graphiql",
+              Absinthe.Plug.GraphiQL,
+              schema: ArcaneDepthsWeb.GraphQL.Schema,
+              json_codec: Jason,
+              interface: :playground
+    end
+
+    forward "/graphql",
+            Absinthe.Plug,
+            schema: ArcaneDepthsWeb.GraphQL.Schema
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", ArcaneDepthsWeb do
-  #   pipe_through :api
-  # end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:arcane_depths, :dev_routes) do
@@ -46,7 +51,6 @@ defmodule ArcaneDepthsWeb.Router do
   end
 
   ## Authentication routes
-
   scope "/", ArcaneDepthsWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 

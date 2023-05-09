@@ -47,9 +47,30 @@ where q and e would be.
 
 ### software / game engine / dungeon
 
+i want to use elixir absynthe to manage a datastructure of a dungeon that consists of multiple layers.
+the layers consist of a 2d grid of cells.
 
+this is the structure it should go into. the projects name is ArcaneDepthsWeb
+├── graphql
+│   ├── resolvers
+│   │   └── dungeon_resolver.ex
+│   ├── schema.ex
+│   ├── schemas
+│   │   ├── mutations
+│   │       └── dungeon.ex
+│   │   └── queries
+│   │       └── dungeon.ex
+│   └── types
+│       └── dungeon.ex
 
 one dungeon consists of multiple levels. each level consists of a 2d grid of cells. each cell has 4 walls that can each be of various types. types of cells can be normal, gate, staircase etc. . each cell has a ceiling that has a type like normal, trapdoor, etc. . each cell has a floor that has a type like normal, puddle, trapdoor etc. . the types of walls, floors and ceilings can change their look and behavoir. each of them can hold additional information like trapdoors and staircases have to know which level and position they lead to. each floor has 4 slots. each slot holds a list of items. the list is ordered and determines which item is rendered first. i need an elixir and ecto datastructure for that. each cell can contain one party. a party consists of 1 - 4 characters. each character has to stand on exactly one slot of the cell. i want to use elixir and absinthe graphql for this.
+
+i'm wondering how we would make the "  the slots also can hold a monster or a player.
+  these have to be part of the party that is currently standing in the cell." part happen. this would have to take into account the cell which has a party standing in it and the slot which has a character from that party in it.
+
+
+i also need a party that can be inside a dungeon and on a specific cell.
+the party can consist of 1-4 characters. these characters have to stand on one specific slot each.
 
 ## game
 gameplay should be very much the same as in dungeon master. the player moves on

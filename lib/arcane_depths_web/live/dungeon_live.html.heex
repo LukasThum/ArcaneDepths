@@ -261,16 +261,14 @@
       <div class="viewport">
         <%= for {x, x_index} <- Enum.with_index(@dungeon) do %>
           <%= for {y, y_index} <- Enum.with_index(x) do %>
-            <%= for {direction, present} <- y do %>
-              <%= if present && wall_visible?(@viewer, {x_index, y_index}, direction) do %>
-                <div
-                  class="wall"
-                  id={"wall-#{x_index}-#{y_index}-#{direction}"}
-                  style={wall_style(@viewport, {x_index, y_index}, direction, @viewer)}
-                  )}
-                >
-                </div>
-              <% end %>
+            <%= for wall <- y.walls do %>
+              <div
+                class="wall"
+                id={"wall-#{x_index}-#{y_index}"}
+                style={# wall_style(@viewport, wall)}
+                )}
+              >
+              </div>
             <% end %>
           <% end %>
         <% end %>

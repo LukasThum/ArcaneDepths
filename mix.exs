@@ -33,6 +33,7 @@ defmodule ArcaneDepths.MixProject do
   defp deps do
     [
       {:absinthe, "~> 1.7.0"},
+      {:absinthe_plug, "~> 1.5"},
       {:bcrypt_elixir, "~> 3.0"},
       {:ecto_sql, "~> 3.6"},
       {:esbuild, "~> 0.7", runtime: Mix.env() == :dev},
