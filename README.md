@@ -47,9 +47,9 @@ where q and e would be.
 
 ### software / game engine / dungeon
 
-one dungeon consists of multiple levels. each level consists of a 2d grid of cells. each cell has 4 walls that can each be of various types. types of cells can be normal, gate, staircase etc. . each cell has a ceiling that has a type like normal, trapdoor, etc. . each cell has a floor that has a type like normal, puddle, trapdoor etc. . the types of walls, floors and ceilings can change their look and behavoir. each of them can hold additional information like trapdoors and staircases have to know which level and position they lead to. each floor has 4 slots. each slot holds a list of items. the list is ordered and determines which item is rendered first. i need an elixir and ecto datastructure for that. each cell can contain one party. a party consists of 1 - 4 characters. each character has to stand on exactly one slot of the cell.
-i want to use elixir and absinthe graphql for this.
 
+
+one dungeon consists of multiple levels. each level consists of a 2d grid of cells. each cell has 4 walls that can each be of various types. types of cells can be normal, gate, staircase etc. . each cell has a ceiling that has a type like normal, trapdoor, etc. . each cell has a floor that has a type like normal, puddle, trapdoor etc. . the types of walls, floors and ceilings can change their look and behavoir. each of them can hold additional information like trapdoors and staircases have to know which level and position they lead to. each floor has 4 slots. each slot holds a list of items. the list is ordered and determines which item is rendered first. i need an elixir and ecto datastructure for that. each cell can contain one party. a party consists of 1 - 4 characters. each character has to stand on exactly one slot of the cell. i want to use elixir and absinthe graphql for this.
 
 ## game
 gameplay should be very much the same as in dungeon master. the player moves on

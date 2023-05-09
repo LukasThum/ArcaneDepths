@@ -35,9 +35,11 @@ defmodule ArcaneDepthsWeb.DungeonLive do
     log = []
 
     viewer = %{
-      position: %{row: 1, cell: 1},
+      position: %{x: 1, y: 1},
       direction: :east
     }
+
+    dungeon = dungeon()
 
     {
       :ok,
@@ -45,7 +47,7 @@ defmodule ArcaneDepthsWeb.DungeonLive do
         socket,
         id: id,
         viewport: viewport,
-        dungeon: dungeon(),
+        dungeon: dungeon,
         viewer: viewer,
         log: log
       )
@@ -58,6 +60,11 @@ defmodule ArcaneDepthsWeb.DungeonLive do
 
   def handle_event("move", %{"action" => action}, socket) do
     log = socket.assigns.log
+
+    dungeon = socket.assigns.dungeon
+    viewer_position = socket.assigns.dungeon
+    viewer_direction = socket.assigns.dungeon
+
     case action do
       "turn-left" ->
         new_direction = get_new_direction_after_turn(socket.assigns.viewer.direction, :left)
@@ -74,20 +81,26 @@ defmodule ArcaneDepthsWeb.DungeonLive do
       "go-forward" ->
         new_position = get_new_position_after_move(socket.assigns.viewer, :forward)
         viewer = %{socket.assigns.viewer | position: new_position}
-        log = ["player moved forward to #{new_position.row}, #{new_position.cell}" | log]
+        log = ["player moved forward to #{new_position.x}, #{new_position.y}" | log]
         {:noreply, assign(socket, viewer: viewer, log: log)}
 
       "go-left" ->
         new_position = get_new_position_after_move(socket.assigns.viewer, :left)
-        {:noreply, assign(socket, viewer: %{socket.assigns.viewer | position: new_position})}
+        viewer = %{socket.assigns.viewer | position: new_position}
+        log = ["player moved forward to #{new_position.x}, #{new_position.y}" | log]
+        {:noreply, assign(socket, viewer: viewer, log: log)}
 
       "go-backward" ->
         new_position = get_new_position_after_move(socket.assigns.viewer, :backward)
-        {:noreply, assign(socket, viewer: %{socket.assigns.viewer | position: new_position})}
+        viewer = %{socket.assigns.viewer | position: new_position}
+        log = ["player moved forward to #{new_position.x}, #{new_position.y}" | log]
+        {:noreply, assign(socket, viewer: viewer, log: log)}
 
       "go-right" ->
         new_position = get_new_position_after_move(socket.assigns.viewer, :right)
-        {:noreply, assign(socket, viewer: %{socket.assigns.viewer | position: new_position})}
+        viewer = %{socket.assigns.viewer | position: new_position}
+        log = ["player moved forward to #{new_position.x}, #{new_position.y}" | log]
+        {:noreply, assign(socket, viewer: viewer, log: log)}
 
       _ ->
         {:noreply, socket}
@@ -113,13 +126,13 @@ defmodule ArcaneDepthsWeb.DungeonLive do
   end
 
   defp get_new_position_after_move(viewer, direction) do
-    %{row: row, cell: cell} = viewer.position
+    %{x: x, y: y} = viewer.position
 
     movement_vectors = %{
-      north: %{row: -1, cell: 0},
-      south: %{row: 1, cell: 0},
-      east: %{row: 0, cell: 1},
-      west: %{row: 0, cell: -1}
+      north: %{x: -1, y: 0},
+      south: %{x: 1, y: 0},
+      east: %{x: 0, y: 1},
+      west: %{x: 0, y: -1}
     }
 
     move_vector =
@@ -128,96 +141,139 @@ defmodule ArcaneDepthsWeb.DungeonLive do
           movement_vectors[viewer.direction]
 
         :backward ->
-          Map.update!(movement_vectors[viewer.direction], :row, &(-&1))
-          |> Map.update!(:cell, &(-&1))
+          Map.update!(movement_vectors[viewer.direction], :x, &(-&1))
+          |> Map.update!(:y, &(-&1))
 
         :left ->
           %{
-            row: movement_vectors[viewer.direction].cell,
-            cell: -movement_vectors[viewer.direction].row
+            x: movement_vectors[viewer.direction].y,
+            y: -movement_vectors[viewer.direction].x
           }
 
         :right ->
           %{
-            row: -movement_vectors[viewer.direction].cell,
-            cell: movement_vectors[viewer.direction].row
+            x: -movement_vectors[viewer.direction].y,
+            y: movement_vectors[viewer.direction].x
           }
       end
 
-    %{row: row + move_vector.row, cell: cell + move_vector.cell}
+    %{x: x + move_vector.x, y: y + move_vector.y}
   end
 
-  def wall_visible?(viewer, {row, cell}, direction) do
+  def wall_visible?(viewer, {x, y}, direction) do
     case viewer.direction do
-      :north -> row <= viewer.position.row && direction == :north
-      :south -> row >= viewer.position.row && direction == :south
-      :west -> cell <= viewer.position.cell && direction == :west
-      :east -> cell >= viewer.position.cell && direction == :east
+      :north -> x <= viewer.position.x && direction == :north
+      :south -> x >= viewer.position.x && direction == :south
+      :west -> y <= viewer.position.y && direction == :west
+      :east -> y >= viewer.position.y && direction == :east
     end
   end
 
-  def wall_style(viewport, {row_index, cell_index}, direction, viewer) do
-    transformed_position = transformed_position(viewer, {row_index, cell_index})
-
-    transform =
-      case direction do
-        :north ->
-          """
-          translateX(#{viewport.wall_left + transformed_position.cell * viewport.wall_width}px)
-          translateY(0px)
-          translateZ(#{-1 * transformed_position.row * viewport.wall_width}px)
-          rotateX(0deg)
-          rotateY(90deg)
-          rotateZ(0deg)
-          """
-
-        :south ->
-          """
-          translateX(#{viewport.wall_left - transformed_position.cell * viewport.wall_width}px)
-          translateY(0px)
-          translateZ(#{1 * transformed_position.row * viewport.wall_width}px)
-          rotateX(0deg)
-          rotateY(-90deg)
-          rotateZ(0deg)
-          """
-
-        :west ->
-          """
-          translateX(#{viewport.wall_left - transformed_position.row * viewport.wall_width}px)
-          translateY(0px)
-          translateZ(#{-1 * transformed_position.cell * viewport.wall_width}px)
-          rotateX(0deg)
-          rotateY(0deg)
-          rotateZ(0deg)
-          """
-
-        :east ->
-          """
-          translateX(#{viewport.wall_left + transformed_position.row * viewport.wall_width}px)
-          translateY(0px)
-          translateZ(#{1 * transformed_position.cell * viewport.wall_width}px)
-          rotateX(0deg)
-          rotateY(180deg)
-          rotateZ(0deg)
-          """
-      end
+  def floor_position(viewport, {x_index, y_index}, viewer) do
+    transformed_position = transformed_position(viewer, {x_index, y_index})
+    # transformed_direction = transform_direction(direction, viewer.direction)
 
     """
-    position: absolute;
-    background-image: url(/images/wall-texture-001.png);
-    transform: #{transform};
+    transform:
+      translateX(#{viewport.wall_left - transformed_position.y * viewport.wall_width}px)
+      translateY(0px)
+      translateZ(#{1 * transformed_position.x * viewport.wall_width}px)
+      rotateX(0deg)
+      rotateY(0deg)
+      rotateZ(0deg);
     """
   end
 
-  def transformed_position(viewer, {row_index, cell_index}) do
-    dx = row_index - viewer.position.row
-    dy = cell_index - viewer.position.cell
+  def wall_style(viewport, {x_index, y_index}, direction, viewer) do
+    transformed_position = transformed_position(viewer, {x_index, y_index})
+    transformed_direction = transform_direction(direction, viewer.direction)
+
+    boiler = """
+    position: absolute;
+    image-rendering: pixelated;
+    background-image: url(/images/wall-texture-001.png);
+    """
+
+    transform =
+      case transformed_direction do
+        :south ->
+          """
+          transform:
+            translateX(#{viewport.wall_left - transformed_position.y * viewport.wall_width}px)
+            translateY(0px)
+            translateZ(#{1 * transformed_position.x * viewport.wall_width}px)
+            rotateX(0deg)
+            rotateY(0deg)
+            rotateZ(0deg);
+          """ <> boiler
+
+        :west ->
+          """
+          transform:
+            translateX(#{viewport.wall_left - transformed_position.x * viewport.wall_width}px)
+            translateY(0px)
+            translateZ(#{-1 * transformed_position.y * viewport.wall_width}px)
+            rotateX(0deg)
+            rotateY(90deg)
+            rotateZ(0deg);
+          """ <> boiler
+
+        :east ->
+          """
+          transform:
+            translateX(#{viewport.wall_left + transformed_position.x * viewport.wall_width}px)
+            translateY(0px)
+            translateZ(#{1 * transformed_position.y * viewport.wall_width}px)
+            rotateX(0deg)
+            rotateY(180deg)
+            rotateZ(0deg);
+          """ <> boiler
+
+        _ ->
+          "display: none;"
+      end
+  end
+
+  def transformed_position(viewer, {x_index, y_index}) do
+    dx = x_index - viewer.position.x
+    dy = y_index - viewer.position.y
 
     case viewer.direction do
-      :north -> %{row: dx, cell: dy}
-      :south -> %{row: -dx, cell: -dy}
-      :west -> %{row: dy, cell: -dx}
-      :east -> %{row: -dy, cell: dx}
+      :north -> %{x: dx, y: dy}
+      :south -> %{x: -dx, y: -dy}
+      :west -> %{x: dy, y: -dx}
+      :east -> %{x: -dy, y: dx}
+    end
+  end
+
+  def transform_direction(original_direction, viewer_direction) do
+    case viewer_direction do
+      :north ->
+        original_direction
+
+      :south ->
+        case original_direction do
+          :north -> :south
+          :south -> :north
+          :west -> :east
+          :east -> :west
+        end
+
+      :west ->
+        case original_direction do
+          :north -> :west
+          :south -> :east
+          :west -> :south
+          :east -> :north
+        end
+
+      :east ->
+        case original_direction do
+          :north -> :east
+          :south -> :west
+          :west -> :north
+          :east -> :south
+        end
     end
   end
 

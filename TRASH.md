@@ -83,3 +83,5 @@ if i can define a polygon by x, y, width, height and use the transformations tra
       _ -> false
     end
   end
+
+  && wall_visible?(@viewer, {row_index, cell_index}, direction)
