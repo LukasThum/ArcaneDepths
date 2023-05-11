@@ -68,9 +68,415 @@ one dungeon consists of multiple levels. each level consists of a 2d grid of cel
 i'm wondering how we would make the "  the slots also can hold a monster or a player.
   these have to be part of the party that is currently standing in the cell." part happen. this would have to take into account the cell which has a party standing in it and the slot which has a character from that party in it.
 
-
 i also need a party that can be inside a dungeon and on a specific cell.
 the party can consist of 1-4 characters. these characters have to stand on one specific slot each.
+
+Absinthe.Schema.lookup_type(ArcaneDepthsWeb.GraphQL.Schema, "Dungeon")
+
+[
+  %{
+    cells: [
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "001",
+        walls: [
+          %{
+            direction: "east",
+            id: "2aba2ff6-2dbe-46b1-9ef7-4ba8dcb17dba",
+            type: "solid"
+          }
+        ]
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "002",
+        walls: [
+          %{
+            direction: "north",
+            id: "690b27aa-0c5b-41b2-a38b-ac13c8af0677",
+            type: "solid"
+          }
+        ]
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "003",
+        walls: [
+          %{
+            direction: "north",
+            id: "59173d1f-2698-4295-b44b-ff9ded81a18c",
+            type: "solid"
+          }
+        ]
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "004",
+        walls: [
+          %{
+            direction: "north",
+            id: "89e863ed-7d5f-46f5-bf9b-49c9dd49947c",
+            type: "solid"
+          }
+        ]
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "005",
+        walls: [
+          %{
+            direction: "west",
+            id: "ce9623f0-57a2-4be1-ad32-696ed4d7fb79",
+            type: "solid"
+          }
+        ]
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "006",
+        walls: [
+          %{
+            direction: "east",
+            id: "cd7e8756-f446-41f6-b935-889cfd1cf24a",
+            type: "solid"
+          }
+        ]
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "007",
+        walls: []
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "008",
+        walls: []
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "009",
+        walls: []
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "010",
+        walls: [
+          %{
+            direction: "west",
+            id: "fe481607-c335-48ef-b5c7-cd13c9c76b31",
+            type: "solid"
+          }
+        ]
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "011",
+        walls: [
+          %{
+            direction: "east",
+            id: "51f187e1-aecb-43e2-8aa2-66d63fa1915c",
+            type: "solid"
+          }
+        ]
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "012",
+        walls: []
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "013",
+        walls: []
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "014",
+        walls: []
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "015",
+        walls: [
+          %{
+            direction: "west",
+            id: "f712fe00-466a-463e-95a5-5cf172fe0558",
+            type: "solid"
+          }
+        ]
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "016",
+        walls: [
+          %{
+            direction: "east",
+            id: "9c29e0b0-2427-4243-ab89-5ef85ab0b94b",
+            type: "solid"
+          }
+        ]
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "017",
+        walls: []
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "018",
+        walls: []
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "019",
+        walls: []
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "020",
+        walls: [
+          %{
+            direction: "west",
+            id: "f1b46491-1a0f-46a3-929c-da236693d21c",
+            type: "solid"
+          }
+        ]
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "021",
+        walls: [
+          %{
+            direction: "east",
+            id: "c91e51a8-bb2a-4c7f-b715-e469bd124796",
+            type: "solid"
+          }
+        ]
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "022",
+        walls: [
+          %{
+            direction: "south",
+            id: "142f05ae-c803-43da-a45e-500f0ad7a78d",
+            type: "solid"
+          }
+        ]
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "023",
+        walls: [
+          %{
+            direction: "south",
+            id: "e0f91fba-cc27-4434-a4d4-c3c6277d8f10",
+            type: "solid"
+          }
+        ]
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "024",
+        walls: [
+          %{
+            direction: "south",
+            id: "a297498b-ce2e-4acc-9bb2-f0a3c7bac2d9",
+            type: "solid"
+          }
+        ]
+      },
+      %{
+        floor: %{
+          id: "001",
+          slot_1: [],
+          slot_2: [],
+          slot_3: [],
+          slot_4: [],
+          type: :normal
+        },
+        id: "025",
+        walls: [
+          %{
+            direction: "west",
+            id: "e7ce7a2f-91af-441b-8357-73db82d8616d",
+            type: "solid"
+          }
+        ]
+      }
+    ],
+    id: "001"
+  }
+]
+
 
 ## game
 gameplay should be very much the same as in dungeon master. the player moves on

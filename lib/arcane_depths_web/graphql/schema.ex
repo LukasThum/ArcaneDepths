@@ -1,25 +1,32 @@
 defmodule ArcaneDepthsWeb.GraphQL.Schema do
   use Absinthe.Schema
 
+  alias ArcaneDepthsWeb.GraphQL.Resolvers.DungeonResolver
+
   # Import the types defined in other modules
   import_types(ArcaneDepthsWeb.GraphQL.Types.Cell)
-  import_types(ArcaneDepthsWeb.GraphQL.Types.DungeonLayer)
+  import_types(ArcaneDepthsWeb.GraphQL.Types.Character)
   import_types(ArcaneDepthsWeb.GraphQL.Types.Dungeon)
+  import_types(ArcaneDepthsWeb.GraphQL.Types.DungeonLayer)
+  import_types(ArcaneDepthsWeb.GraphQL.Types.Floor)
+  import_types(ArcaneDepthsWeb.GraphQL.Types.Item)
+  import_types(ArcaneDepthsWeb.GraphQL.Types.Party)
+  import_types(ArcaneDepthsWeb.GraphQL.Types.Wall)
 
-  # Define the root query object
-  object :query do
+
+  query do
+
+    @desc "get the whole dungeon"
     field :dungeon, :dungeon do
       arg(:id, non_null(:id))
-      resolve(&ArcaneDepthsWeb.GraphQL.Resolvers.DungeonResolver.get_dungeon/3)
-    end
-  end
+      resolve(&DungeonResolver.get_dungeon/3)
 
-  # Define the schema
-  def schema do
-    # Define the root query and mutation
-    Absinthe.Schema.Notation.compile(%{
-      query: ArcaneDepthsWeb.GraphQL.Schema,
-      mutation: ArcaneDepthsWeb.GraphQL.Schema
-    })
+      # can be nested
+      # field :posts, list_of(:post) do
+      #   arg :date, :date
+      #   resolve &Resolvers.Content.list_posts/3
+      # end
+    end
+
   end
 end

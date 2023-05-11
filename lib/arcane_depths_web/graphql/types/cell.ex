@@ -17,13 +17,14 @@ defmodule ArcaneDepthsWeb.GraphQL.Types.Cell do
     @desc "A list of walls in the cell"
     field :walls, list_of(:wall)
 
-    @desc "The ceiling of the cell"
-    field :ceiling, :ceiling
-
     @desc "The floor of the cell"
     field :floor, :floor
 
     @desc "The party in the cell"
     field :party, :party
+
+    # @desc "The ceiling of the cell"
+    # field :ceiling, :ceiling
+
   end
 end

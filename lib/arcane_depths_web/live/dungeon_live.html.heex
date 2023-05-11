@@ -185,13 +185,24 @@
   }
 
   .wall {
+    position: absolute;
+    background-image: url(/images/wall-texture-001.png);
+    image-rendering: pixelated;
     width: <%= @viewport[:wall_width] %>px;
     height: <%= @viewport[:wall_height] %>px;
   }
 
   .floor {
     position: absolute;
-    background-image: url(/images/floor-texture-001.png);
+    background-image: url(/images/floor-texture-002.png);
+    image-rendering: pixelated;
+    width: <%= @viewport[:wall_width] %>px;
+    height: <%= @viewport[:wall_width] %>px;
+  }
+
+  .ceiling {
+    position: absolute;
+    background-image: url(/images/ceiling-texture-001.png);
     image-rendering: pixelated;
     width: <%= @viewport[:wall_width] %>px;
     height: <%= @viewport[:wall_width] %>px;
@@ -225,9 +236,7 @@
       </div>
       -->
       <div class="log-area">
-        <%= for l <- @log do %>
-          <p class="log-entry"><%= l %></p>
-        <% end %>
+
       </div>
 
       <div class="navigation-area">
@@ -257,22 +266,57 @@
       </div>
     </div>
 
-    <div class="viewport-area">
-      <div class="viewport">
-        <%= for {x, x_index} <- Enum.with_index(@dungeon) do %>
-          <%= for {y, y_index} <- Enum.with_index(x) do %>
-            <%= for wall <- y.walls do %>
-              <div
-                class="wall"
-                id={"wall-#{x_index}-#{y_index}"}
-                style={# wall_style(@viewport, wall)}
-                )}
-              >
-              </div>
-            <% end %>
-          <% end %>
+
+  <div class="viewport-area">
+    <div class="viewport">
+      <%= for {y, row} <- numbered_rows(@cells) do %>
+        <%= for {x, cell} <- row do %>
+
+          <div
+            class="ceiling"
+            style={"
+              transform:
+                translateX(#{ x * @viewport.wall_width }px)
+                translateZ(#{ y * @viewport.wall_width }px)
+                translateY(#{ -1 * @viewport.wall_height / 2}px)
+                rotateX(90deg)
+                rotateY(0deg)
+                rotateZ(0deg);
+            "}
+          ></div>
+
+          <div
+            class="floor"
+            style={"
+              transform:
+                translateX(#{ x * @viewport.wall_width }px)
+                translateZ(#{ y * @viewport.wall_width }px)
+                translateY(#{ 1 * @viewport.wall_height / 2 }px)
+                rotateX(90deg)
+                rotateY(0deg)
+                rotateZ(0deg);
+            "}
+          ></div>
+
+
+          <div
+            class="wall"
+            style={"
+              transform:
+                translateX(#{ x * @viewport.wall_width }px)
+                translateZ(#{ (y * @viewport.wall_width) - @viewport.half_wall_width }px)
+                translateY(#{ 0 }px)
+                rotateX(0deg)
+                rotateY(0deg)
+                rotateZ(0deg);
+            "}
+          ></div>
+
         <% end %>
-      </div>
+      <% end %>
     </div>
+  </div>
+
+
   </div>
 </div>
