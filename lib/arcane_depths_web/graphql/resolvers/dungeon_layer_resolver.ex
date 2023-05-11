@@ -1,5 +1,4 @@
 defmodule ArcaneDepthsWeb.GraphQL.Resolvers.DungeonLayerResolver do
-
   alias ArcaneDepthsWeb.GraphQL.Resolvers.CellResolver
 
   def get_dungeon_layers(id) do
@@ -10,7 +9,7 @@ defmodule ArcaneDepthsWeb.GraphQL.Resolvers.DungeonLayerResolver do
       }
     ]
 
-   # IO.inspect(dungeon)
+    # IO.inspect(dungeon)
 
     dungeon
   end

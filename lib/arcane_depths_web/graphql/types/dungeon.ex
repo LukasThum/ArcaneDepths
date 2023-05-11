@@ -7,7 +7,6 @@ defmodule ArcaneDepthsWeb.GraphQL.Types.Dungeon do
 
   @desc "A representation of a dungeon."
   object :dungeon do
-
     @desc "id of a dungeon"
     field(:id, non_null(:string))
 

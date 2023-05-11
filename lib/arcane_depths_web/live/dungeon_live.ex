@@ -38,7 +38,7 @@ defmodule ArcaneDepthsWeb.DungeonLive do
       ceiling_ratio: 0.1,
       floor_ratio: 0.2,
       sidewall_ratio: 0.2,
-      perspective: 428
+      perspective: 625
     }
 
     viewport_calculation = %{
@@ -51,7 +51,8 @@ defmodule ArcaneDepthsWeb.DungeonLive do
           viewport_constants.wall_height * viewport_constants.floor_ratio,
       wall_left: -1 * (viewport_constants.wall_width / 2),
       wall_right: viewport_constants.wall_width / 2,
-      half_wall_width: viewport_constants.wall_width / 2
+      half_wall_width: viewport_constants.wall_width / 2,
+      half_wall_height: viewport_constants.wall_height / 2
     }
 
     viewport = Map.merge(viewport_calculation, viewport_constants)
@@ -61,22 +62,80 @@ defmodule ArcaneDepthsWeb.DungeonLive do
 
   # recompile; ArcaneDepthsWeb.DungeonLive.numbered_rows(ArcaneDepthsWeb.DungeonLive.get_cells())
   def numbered_rows(cells) do
+    middle = 3
+
     cells
+    |> Enum.reverse()
     |> Enum.with_index()
+    |> Enum.reverse()
     |> Enum.map(fn {row, i} ->
-      {i , numbered_cells(row)}
+      {middle - i, numbered_cells(row)}
     end)
   end
 
   # recompile; ArcaneDepthsWeb.DungeonLive.numbered_cells()
   def numbered_cells(row) do
-    middle = round(length(row) / 2) -1
+    middle = floor(length(row) / 2)
 
     row
     |> Enum.with_index()
+    |> alternate_list()
     |> Enum.map(fn {cell, i} ->
       {i - middle, cell}
     end)
+  end
+
+  # recompile; ArcaneDepthsWeb.DungeonLive.alternate_list([1, 2, 3, 4, 5, 6, 7])
+  def alternate_list([]), do: []
+  def alternate_list([elem]), do: [elem]
+
+  def alternate_list(list) do
+    [hd | middle] = list
+
+    case :lists.reverse(middle) do
+      [] -> [hd]
+      [last | middle_rev] -> [hd, last | alternate_list(:lists.reverse(middle_rev))]
+    end
+  end
+
+  def get_wall_transform(viewport, x, y, "north") do
+    """
+    transform:
+      translateX(#{x * viewport.wall_width}px)
+      translateZ(#{y * viewport.wall_width - viewport.half_wall_width}px)
+      translateY(#{0}px)
+      rotateX(0deg)
+      rotateY(0deg)
+      rotateZ(0deg);
+    """
+  end
+
+  def get_wall_transform(viewport, x, y, "west") do
+    """
+    transform:
+      translateX(#{x * viewport.wall_width - viewport.half_wall_width}px)
+      translateZ(#{y * viewport.wall_width}px)
+      translateY(#{0}px)
+      rotateX(0deg)
+      rotateY(90deg)
+      rotateZ(0deg);
+    """
+  end
+
+  def get_wall_transform(viewport, x, y, "east") do
+    """
+    transform:
+      translateX(#{x * viewport.wall_width + viewport.half_wall_width}px)
+      translateZ(#{y * viewport.wall_width}px)
+      translateY(#{0}px)
+      rotateX(0deg)
+      rotateY(90deg)
+      rotateZ(0deg);
+    """
+  end
+
+  def get_wall_transform(viewport, x, y, _) do
+    ""
   end
 
   def get_cells() do
@@ -85,25 +144,61 @@ defmodule ArcaneDepthsWeb.DungeonLive do
         %{},
         %{},
         %{},
+        %{
+          walls: [
+            %{
+              direction: "west",
+              type: "normal"
+            },
+            %{
+              direction: "east",
+              type: "normal"
+            }
+          ]},
         %{},
         %{},
-        %{},
-        %{},
+        %{}
       ],
       [
         %{},
         %{},
-        %{},
-        %{},
-        %{},
-      ],
-      [
-        %{},
-        %{},
-        %{},
-      ],
-    ]
+        %{
 
+          walls: [
+            %{
+              direction: "west",
+              type: "normal"
+            },
+            %{
+              direction: "east",
+              type: "normal"
+            }
+          ]
+        },
+        %{},
+        %{}
+      ],
+      [
+        %{
+          walls: [
+            %{
+              direction: "north",
+              type: "normal"
+            }
+          ]
+        },
+        %{
+        },
+        %{
+          walls: [
+            %{
+              direction: "north",
+              type: "normal"
+            }
+          ]
+        }
+      ]
+    ]
 
     cells
   end

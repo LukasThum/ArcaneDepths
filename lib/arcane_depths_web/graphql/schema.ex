@@ -13,9 +13,7 @@ defmodule ArcaneDepthsWeb.GraphQL.Schema do
   import_types(ArcaneDepthsWeb.GraphQL.Types.Party)
   import_types(ArcaneDepthsWeb.GraphQL.Types.Wall)
 
-
   query do
-
     @desc "get the whole dungeon"
     field :dungeon, :dungeon do
       arg(:id, non_null(:id))
@@ -27,6 +25,5 @@ defmodule ArcaneDepthsWeb.GraphQL.Schema do
       #   resolve &Resolvers.Content.list_posts/3
       # end
     end
-
   end
 end

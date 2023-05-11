@@ -25,6 +25,5 @@ defmodule ArcaneDepthsWeb.GraphQL.Types.Cell do
 
     # @desc "The ceiling of the cell"
     # field :ceiling, :ceiling
-
   end
 end
