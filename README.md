@@ -1,5 +1,7 @@
 # ArcaneDepths
 
+check https://arcane-depths.fly.dev/ to see it in action.
+
 ## Deployment
 
 This is a game that combines the slow gameplay and simple graphics of dungeon
