@@ -269,90 +269,30 @@
         <%= for {y, row} <- numbered_rows(@cells) do %>
           <%= for {x, cell} <- row do %>
             <div
+              id={ "ceiling-#{x}-#{y}" }
               class="ceiling"
-              style={"
-              transform:
-                translateX(#{ x * @viewport.wall_width }px)
-                translateZ(#{ y * @viewport.wall_width }px)
-                translateY(#{ -1 * @viewport.half_wall_height}px)
-                rotateX(90deg)
-                rotateY(0deg)
-                rotateZ(0deg);
-            "}
+              style={get_ceil_transform(@viewport, x, y)}
             >
             </div>
 
             <div
+              id={ "floor-#{x}-#{y}" }
               class="floor"
-              style={"
-              transform:
-                translateX(#{ x * @viewport.wall_width }px)
-                translateZ(#{ y * @viewport.wall_width }px)
-                translateY(#{ @viewport.half_wall_height }px)
-                rotateX(90deg)
-                rotateY(0deg)
-                rotateZ(0deg);
-            "}
+              style={get_floor_transform(@viewport, x, y)}
             >
             </div>
 
             <%= for wall <- cell[:walls] || [] do %>
               <div class="wall" style={get_wall_transform(@viewport, x, y, wall.direction)}></div>
             <% end %>
+
+            <%= for slot <- cell[:slots] || [] do %>
+              <%= for item <- slot[:items] || [] do %>
+                <div class="item" style={get_item_style(@viewport, x, y, slot, item)}></div>
+              <% end %>
+            <% end %>
           <% end %>
         <% end %>
-        <!--
-      <div
-        class="floor"
-        style={"
-          transform:
-            translateX(#{ 0 * @viewport.wall_width }px)
-            translateZ(#{ 0 * @viewport.wall_width }px)
-            translateY(#{ 1 * @viewport.wall_height / 2 }px)
-            rotateX(90deg)
-            rotateY(0deg)
-            rotateZ(0deg);
-        "}
-      ></div>
-
-      <div
-        class="floor"
-        style={"
-          transform:
-            translateX(#{ 0 * @viewport.wall_width }px)
-            translateZ(#{ 1 * @viewport.wall_width }px)
-            translateY(#{ 1 * @viewport.wall_height / 2 }px)
-            rotateX(90deg)
-            rotateY(0deg)
-            rotateZ(0deg);
-        "}
-      ></div>
-
-      <div
-        class="floor"
-        style={"
-          transform:
-            translateX(#{ 0 * @viewport.wall_width }px)
-            translateZ(#{ 2 * @viewport.wall_width }px)
-            translateY(#{ 1 * @viewport.wall_height / 2 }px)
-            rotateX(90deg)
-            rotateY(0deg)
-            rotateZ(0deg);
-        "}
-      ></div>
-      <div
-        class="floor"
-        style={"
-          transform:
-            translateX(#{ 0 * @viewport.wall_width }px)
-            translateZ(#{ 3 * @viewport.wall_width }px)
-            translateY(#{ 1 * @viewport.wall_height / 2 }px)
-            rotateX(90deg)
-            rotateY(0deg)
-            rotateZ(0deg);
-        "}
-      ></div>
-      -->
       </div>
     </div>
   </div>

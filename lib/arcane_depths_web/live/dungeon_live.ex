@@ -138,6 +138,78 @@ defmodule ArcaneDepthsWeb.DungeonLive do
     ""
   end
 
+  def get_floor_transform(viewport, x, y) do
+    """
+      transform:
+        translateX(#{x * viewport.wall_width}px)
+        translateZ(#{y * viewport.wall_width}px)
+        translateY(#{viewport.half_wall_height}px)
+        rotateX(90deg)
+        rotateY(0deg)
+        rotateZ(0deg);
+    """
+  end
+
+  def get_ceil_transform(viewport, x, y) do
+    """
+      transform:
+        translateX(#{x * viewport.wall_width}px)
+        translateZ(#{y * viewport.wall_width}px)
+        translateY(#{-1 * viewport.half_wall_height}px)
+        rotateX(90deg)
+        rotateY(0deg)
+        rotateZ(0deg);
+    """
+  end
+
+  # arrange them in a circular style?
+  def get_item_style(viewport, x, y, slot, item) do
+    image =
+      case item.type do
+        "flask-emtpy" ->
+          """
+            position: absolute;
+            background-image: url(/images/item-flask-empty.png);
+            image-rendering: pixelated;
+            width: 32px;
+            height: 32px;
+
+            transform:
+              translateX(#{x * viewport.wall_width - viewport.half_wall_width / 2}px)
+              translateZ(#{y * viewport.wall_width - viewport.half_wall_width + viewport.half_wall_width / 2}px)
+              translateY(#{viewport.half_wall_width - 32}px)
+              scale(#{y / 5})
+              rotateX(0deg)
+              rotateY(0deg)
+              rotateZ(0deg);
+          """
+
+        "flask-water" ->
+          """
+            position: absolute;
+            background-image: url(/images/item-flask-water.png);
+            image-rendering: pixelated;
+            width: 32px;
+            height: 32px;
+
+            transform:
+              translateX(#{x * viewport.wall_width + viewport.half_wall_width / 2}px)
+              translateZ(#{(y - 1) * viewport.wall_width - viewport.half_wall_width + viewport.half_wall_width / 2}px)
+              translateY(#{viewport.half_wall_width - 32}px)
+              scale(#{y / 5})
+              rotateX(0deg)
+              rotateY(0deg)
+              rotateZ(0deg);
+          """
+
+        _ ->
+          ""
+      end
+
+    """
+    """ <> image
+  end
+
   def get_cells() do
     cells = [
       [
@@ -154,7 +226,8 @@ defmodule ArcaneDepthsWeb.DungeonLive do
               direction: "east",
               type: "normal"
             }
-          ]},
+          ]
+        },
         %{},
         %{},
         %{}
@@ -163,7 +236,6 @@ defmodule ArcaneDepthsWeb.DungeonLive do
         %{},
         %{},
         %{
-
           walls: [
             %{
               direction: "west",
@@ -172,6 +244,17 @@ defmodule ArcaneDepthsWeb.DungeonLive do
             %{
               direction: "east",
               type: "normal"
+            }
+          ],
+          slots: [
+            %{
+              position: "north_west",
+              items: [
+                %{
+                  type: "flask-emtpy"
+                }
+              ],
+              characters: []
             }
           ]
         },
@@ -188,6 +271,26 @@ defmodule ArcaneDepthsWeb.DungeonLive do
           ]
         },
         %{
+          slots: [
+            %{
+              position: "north_west",
+              items: [
+                %{
+                  type: "flask-emtpy"
+                }
+              ],
+              characters: []
+            },
+            %{
+              position: "north_east",
+              items: [
+                %{
+                  type: "flask-water"
+                }
+              ],
+              characters: []
+            }
+          ]
         },
         %{
           walls: [

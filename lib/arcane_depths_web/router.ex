@@ -74,8 +74,8 @@ defmodule ArcaneDepthsWeb.Router do
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
     end
 
-    live "/dungeon", DungeonLive
-    live "/dungeon:id", DungeonLive
+    live "/", DungeonLive
+    live "/:id", DungeonLive
   end
 
   scope "/", ArcaneDepthsWeb do
