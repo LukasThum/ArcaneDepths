@@ -87,6 +87,9 @@ defmodule ArcaneDepthsWeb do
       import ArcaneDepthsWeb.CoreComponents
       import ArcaneDepthsWeb.Gettext
 
+      # Game components
+      import ArcaneDepthsWeb.GameComponents
+
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
 

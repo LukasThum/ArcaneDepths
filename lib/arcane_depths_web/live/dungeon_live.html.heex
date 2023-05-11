@@ -1,4 +1,6 @@
+
 <style>
+
   .gui {
     display: grid;
     height: 100%;
@@ -10,6 +12,8 @@
       "character-management-area"
       "lower-area";
     padding-bottom: 30px;
+
+    /* cursor: url("/images/item-flask-empty-001.svg"), default; */
   }
 
   .character-management-area {
@@ -239,7 +243,11 @@
         <div class="action-char-4"></div>
       </div>
       -->
-      <div class="log-area"></div>
+      <div class="log-area">
+        <%= for l <- @log do %>
+          <p class="log-entry"><%= l %></p>
+        <% end %>
+      </div>
 
       <div class="navigation-area">
         <div class="turn-left-area" phx-click="move" phx-value-action="turn-left">
@@ -290,11 +298,16 @@
               <div class="wall" style={get_wall_transform(@viewport, x, y, wall.direction)}></div>
             <% end %>
 
-            <%= for slot <- cell[:slots] || [] do %>
-              <%= for item <- slot[:items] || [] do %>
-                <div class="item" style={get_item_style(@viewport, x, y, slot, item)}></div>
+            <%= for n <- 0..10 do %>
+
+              <%= for slot <- cell[:slots] || [] do %>
+                <%= for item <- slot[:items] || [] do %>
+                  <.item type="flask-empty" style={get_item_style(@viewport, x, y, slot, item)} />
+                <% end %>
               <% end %>
+
             <% end %>
+
           <% end %>
         <% end %>
       </div>

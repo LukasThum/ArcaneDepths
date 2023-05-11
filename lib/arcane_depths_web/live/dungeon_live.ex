@@ -1,6 +1,8 @@
 defmodule ArcaneDepthsWeb.DungeonLive do
   use ArcaneDepthsWeb, :live_view
 
+  alias ArcaneDepthsWeb.ItemHTML
+
   def mount(%{"id" => id}, _session, socket) do
     topic = "dungeon:#{id}:tick"
 
@@ -14,7 +16,8 @@ defmodule ArcaneDepthsWeb.DungeonLive do
         socket,
         id: id,
         viewport: get_viewport(),
-        cells: get_cells()
+        cells: get_cells(),
+        log: []
       )
     }
   end
@@ -23,8 +26,10 @@ defmodule ArcaneDepthsWeb.DungeonLive do
     mount(%{"id" => "4"}, session, socket)
   end
 
-  def handle_event(_params, _session, socket) do
-    {:noreply, socket}
+  def handle_event(event, session, socket) do
+    IO.inspect(session)
+    log = ["#{ event } #{ session["item"] }" | socket.assigns.log]
+    {:noreply, assign(socket, log: log)}
   end
 
   def handle_info(_info, socket) do
@@ -174,10 +179,12 @@ defmodule ArcaneDepthsWeb.DungeonLive do
         "flask-emtpy" ->
           """
             position: absolute;
-            background-image: url(/images/item-flask-empty.png);
+            /*
+            background-image: url(/images/item-flask-empty-001.svg);
             image-rendering: pixelated;
             width: 32px;
             height: 32px;
+            */
 
             transform:
               translateX(#{x * viewport.wall_width - viewport.half_wall_width / 2}px)
