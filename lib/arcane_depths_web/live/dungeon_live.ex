@@ -52,7 +52,12 @@ defmodule ArcaneDepthsWeb.DungeonLive do
       wall_left: -1 * (viewport_constants.wall_width / 2),
       wall_right: viewport_constants.wall_width / 2,
       half_wall_width: viewport_constants.wall_width / 2,
-      half_wall_height: viewport_constants.wall_height / 2
+      half_wall_height: viewport_constants.wall_height / 2,
+      forth_wall_width: viewport_constants.wall_width / 4,
+      forth_wall_height: viewport_constants.wall_height / 4,
+
+      image_width: viewport_constants.wall_width + 1,
+      image_height: viewport_constants.wall_height + 1,
     }
 
     viewport = Map.merge(viewport_calculation, viewport_constants)
