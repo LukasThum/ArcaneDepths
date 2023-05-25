@@ -13,7 +13,7 @@
       "lower-area";
     padding-bottom: 30px;
 
-    /* cursor: url("/images/item-flask-empty-001.svg"), default; */
+    cursor: url("/images/gui-cursor-hand.svg"), default;
   }
 
   .character-management-area {
@@ -226,6 +226,12 @@
   }
 </style>
 
+<svg style="display: none" version="2.0">
+  <defs>
+    <%= ArcaneDepthsWeb.Item.FlaskEmtpy.visibles() %>
+  </defs>
+</svg>
+
 <div class="gui">
   <div class="character-management-area">
     <div class="characters"></div>
@@ -298,15 +304,13 @@
               <div class="wall" style={get_wall_transform(@viewport, x, y, wall.direction)}></div>
             <% end %>
 
-            <%= for n <- 0..10 do %>
-
               <%= for slot <- cell[:slots] || [] do %>
                 <%= for item <- slot[:items] || [] do %>
-                  <.item type="flask-empty" style={get_item_style(@viewport, x, y, slot, item)} />
+                  <div style={get_item_style(@viewport, x, y, slot, item)} >
+                    <.item type="flask-empty" />
+                  </div>
                 <% end %>
               <% end %>
-
-            <% end %>
 
           <% end %>
         <% end %>

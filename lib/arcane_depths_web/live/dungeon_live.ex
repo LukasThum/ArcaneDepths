@@ -179,34 +179,10 @@ defmodule ArcaneDepthsWeb.DungeonLive do
         "flask-emtpy" ->
           """
             position: absolute;
-            /*
-            background-image: url(/images/item-flask-empty-001.svg);
-            image-rendering: pixelated;
-            width: 32px;
-            height: 32px;
-            */
 
             transform:
               translateX(#{x * viewport.wall_width - viewport.half_wall_width / 2}px)
               translateZ(#{y * viewport.wall_width - viewport.half_wall_width + viewport.half_wall_width / 2}px)
-              translateY(#{viewport.half_wall_width - 32}px)
-              scale(#{y / 5})
-              rotateX(0deg)
-              rotateY(0deg)
-              rotateZ(0deg);
-          """
-
-        "flask-water" ->
-          """
-            position: absolute;
-            background-image: url(/images/item-flask-water.png);
-            image-rendering: pixelated;
-            width: 32px;
-            height: 32px;
-
-            transform:
-              translateX(#{x * viewport.wall_width + viewport.half_wall_width / 2}px)
-              translateZ(#{(y - 1) * viewport.wall_width - viewport.half_wall_width + viewport.half_wall_width / 2}px)
               translateY(#{viewport.half_wall_width - 32}px)
               scale(#{y / 5})
               rotateX(0deg)

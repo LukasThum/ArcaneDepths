@@ -8,7 +8,7 @@
    version="1.1"
    id="svg182"
    inkscape:version="1.2.2 (b0a84865, 2022-12-01)"
-   sodipodi:docname="flask-empty-001.svg"
+   sodipodi:docname="item-flask-empty-001.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,13 +24,13 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="true"
-     inkscape:zoom="11.521406"
-     inkscape:cx="18.270339"
-     inkscape:cy="17.315594"
-     inkscape:window-width="751"
-     inkscape:window-height="847"
-     inkscape:window-x="661"
-     inkscape:window-y="25"
+     inkscape:zoom="18.194708"
+     inkscape:cx="14.097506"
+     inkscape:cy="18.082181"
+     inkscape:window-width="1440"
+     inkscape:window-height="900"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1"
      showborder="true"
@@ -329,5 +329,22 @@
        height="4"
        x="16"
        y="0" />
+    <g
+       id="g1301">
+      <rect
+         style="fill:#c536b2;fill-opacity:0.170984;stroke-width:6.67802"
+         id="rect598"
+         width="12"
+         height="14"
+         x="10"
+         y="0" />
+      <rect
+         style="fill:#c536b2;fill-opacity:0.170984;stroke-width:10.7086"
+         id="rect598-9"
+         width="24"
+         height="18"
+         x="4"
+         y="14" />
+    </g>
   </g>
 </svg>

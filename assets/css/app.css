@@ -8,3 +8,12 @@
 div[data-phx-main] {
   height: 100%;
 }
+
+/* color palette */
+.fc-orange {
+  fill:#deaa87;
+}
+
+.fc-black {
+  fill:#000000
+}
